@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Jadwal Harian</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Quicksand", sans-serif;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #000;
+            overflow: hidden;
+        }
+        
+        section {
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            grid-template-rows: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 2px;
+        }
+        
+        section span {
+            background: #181818;
+            transition: 0.3s;
+        }
+        
+        section span:hover {
+            background: #f00;
+            transition: 0s;
+        }
+        
+        .container {
+            position: absolute;
+            width: 90vw;
+            max-width: 800px;
+            background: #222;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px;
+            border-radius: 4px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9);
+        }
+        
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: #f00;
+        }
+        
+        input[type="text"] {
+            padding: 10px;
+            width: 100%;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            border-radius: 5px;
+            background: #333;
+            color: white;
+        }
+        
+        button {
+            padding: 10px 15px;
+            background-color: #f00;
+            color: black;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover {
+            background-color: #ff3333;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            background: #111;
+        }
+        
+        th, td {
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            padding: 10px;
+            text-align: left;
+            color: #ffffff;
+        }
+        
+        th {
+            background-color: rgba(255, 0, 0, 0.2);
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                width: 95vw;
+                padding: 20px;
+            }
+            h2 {
+                font-size: 1.5rem;
+            }
+            input[type="text"] {
+                font-size: 14px;
+            }
+            button {
+                font-size: 14px;
+                padding: 8px 12px;
+            }
+            table {
+                font-size: 14px;
+            }
+            section {
+                grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+                grid-template-rows: repeat(auto-fill, minmax(60px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <script>
+            for (let i = 0; i < 200; i++) {
+                let span = document.createElement("span");
+                document.querySelector("section").appendChild(span);
+            }
+        </script>
+    </section>
+    
+    <div class="container">
+        <h2>Jadwal Harian</h2>
+        
+        <input type="text" id="new-task" placeholder="Tambahkan tugas baru">
+        <button onclick="addTask()">Tambah</button>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Tugas</th>
+                    <th>Selesai</th>
+                    <th>Hapus</th>
+                </tr>
+            </thead>
+            <tbody id="task-list">
+                <tr>
+                    <td>Belajar Matematika</td>
+                    <td><input type="checkbox"></td>
+                    <td><button onclick="deleteTask(this)">Hapus</button></td>
+                </tr>
+                <tr>
+                    <td>Olahraga Pagi</td>
+                    <td><input type="checkbox"></td>
+                    <td><button onclick="deleteTask(this)">Hapus</button></td>
+                </tr>
+                <tr>
+                    <td>Mengerjakan PR</td>
+                    <td><input type="checkbox"></td>
+                    <td><button onclick="deleteTask(this)">Hapus</button></td>
+                </tr>
+                <tr>
+                    <td>Membaca Buku</td>
+                    <td><input type="checkbox"></td>
+                    <td><button onclick="deleteTask(this)">Hapus</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <script>
+        function addTask() {
+            var taskText = document.getElementById("new-task").value;
+            if (taskText.trim() === "") return;
+            
+            var taskList = document.getElementById("task-list");
+            var newRow = document.createElement("tr");
+            newRow.innerHTML = `<td>${taskText}</td><td><input type='checkbox'></td><td><button onclick='deleteTask(this)'>Hapus</button></td>`;
+            taskList.appendChild(newRow);
+            
+            document.getElementById("new-task").value = "";
+        }
+        
+        function deleteTask(button) {
+            button.parentElement.parentElement.remove();
+        }
+    </script>
+</body>
+</html>
